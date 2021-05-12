@@ -8,8 +8,8 @@ spring:
     hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://localhost:3306/KEY?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
-      username: root
-      password: weare2
+      username: username
+      password: password
       connection-test-query: SELECT NOW() FROM dual
     
   mapper-locations: mappers/*Mapper.xml
