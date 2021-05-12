@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.kakaopay.project.mapper.KeyNumrngMapper">
+ 
+	<select id="getKeyInfobyKeyName" parameterType="KeyNumrngDVO" resultType="KeyNumrngDVO">
+        SELECT	KEY_NAME
+        		, KEY_TYP_CD
+            	, BIZ_CLSS_CD
+            	, EXNT
+        FROM	KEY.NUMRNG_INFO
+        WHERE 	KEY_NAME = #{keyName}
+    </select>
+    
+    <insert id="registerKeyInfo" parameterType="KeyNumrngDVO" >
+		INSERT INTO KEY.NUMRNG_INFO (
+			KEY_NAME
+			, KEY_TYP_CD
+			, BIZ_CLSS_CD
+			, EXNT
+			, CHG_DTTM
+			, REG_DTTM
+			) VALUES (
+			 #{keyName}
+			, #{keyTypCd}
+			, #{bizClssCd}
+			, #{exnt}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<insert id="getNextNumKey" parameterType="KeyNumrngDVO" >
+		INSERT INTO KEY.NUM_NUMRNG (
+			KEY_NAME
+			, CHG_DTTM
+			, REG_DTTM
+			) VALUES (
+			 #{keyName}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<select id="getLastInsertKey" resultType="int">
+        SELECT	LAST_INSERT_ID()
+    </select> 
+    
+	<select id="getRandomStringKey" resultType="string">
+        SELECT
+            CONCAT(LEFT(UPPER(UUID()),4),  MID(UPPER(UUID()),9,15 )) AS STR_KEY
+        FROM DUAL
+    </select> 
+    
+	<insert id="getNextStringKey" parameterType="KeyNumrngDVO" >
+		INSERT INTO KEY.STR_NUMRNG (
+			STR_KEY
+			, KEY_NAME
+			, CHG_DTTM
+			, REG_DTTM
+			) VALUES (
+			#{strKey}
+			, #{keyName}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+</mapper>

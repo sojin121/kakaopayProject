@@ -1,0 +1,19 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+        
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/KEY?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: root
+      password: weare2
+      connection-test-query: SELECT NOW() FROM dual
+    
+  mapper-locations: mappers/*Mapper.xml
+  type-aliases-package: com.kakaopay.project.mapper
+  configuration: 
+    map-underscore-to-camel-case: true
+
